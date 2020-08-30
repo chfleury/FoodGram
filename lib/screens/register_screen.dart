@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trainee/widgets/gradient_button.dart';
 
 import '../bloc/login/login.dart';
 import '../repository/dataRepository.dart';
@@ -102,7 +103,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: LinearProgressIndicator(),
                                 );
                               }
-                              return _buildButton();
+                              return GradientButton(
+                                  label: 'Registrar', onPressed: _submit);
+                              
                             }),
                         listener: (context, state) {
                           if (state is LoginLoaded) {
@@ -130,26 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Container _buildButton() {
-    return Container(
-      width: 250,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.pink, Colors.pink[300], Colors.amber]),
-      ),
-      child: FlatButton(
-          //color: Colors.pink,
-          onPressed: _submit,
-          child: Text(
-            'Registrar',
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          )),
-    );
-  }
-
-    @override
+  @override
   void dispose() {
     _loginBloc.close();
     super.dispose();

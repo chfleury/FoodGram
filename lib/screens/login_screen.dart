@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:trainee/widgets/gradient_button.dart';
 
 import '../bloc/login/login.dart';
 import '../repository/dataRepository.dart';
@@ -43,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Doarti Trainee',
+          'Foodgram',
           style: TextStyle(fontFamily: 'SIMPLIFICA Typeface', fontSize: 50),
         ),
         Form(
@@ -89,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (state is LoginLoaded) {
                     Navigator.of(context).pushReplacementNamed(HomeScreen.id);
                   } else if (state is LoginError) {
-                    print(state.e);
+                    
+                    print('Usuario ou senha invalidos');
                   }
                 },
                 child: BlocBuilder<LoginBloc, LoginState>(
@@ -100,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: LinearProgressIndicator(),
                         );
                       }
-                      return _buildSubmitButton();
+                      return GradientButton(label: 'Entrar', onPressed: _submit);
                     }),
               ),
               SizedBox(
@@ -132,7 +135,9 @@ class _LoginScreenState extends State<LoginScreen> {
             Scaffold.of(context).showSnackBar(SnackBar(
               content: Text(
                 'Conta criada com Sucesso',
-                style: TextStyle(fontSize: 18,),
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               ),
               backgroundColor: Colors.green,
             ));
@@ -146,25 +151,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     });
-  }
-
-  Container _buildSubmitButton() {
-    return Container(
-      width: 250,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.pink, Colors.pink[300], Colors.amber]),
-      ),
-      child: FlatButton(
-          //color: Colors.pink,
-          onPressed: _submit,
-          child: Text(
-            'Entrar',
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          )),
-    );
   }
 
   @override

@@ -12,7 +12,7 @@ class Login extends LoginEvent {
   final String email;
   final String senha;
   final FirebaseAuth auth = FirebaseAuth.instance;
-
+  
   Login({@required this.email, @required this.senha});
 }
 

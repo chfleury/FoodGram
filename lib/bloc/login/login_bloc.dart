@@ -16,6 +16,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is Login) {
       yield LoginLoading();
       try {
+
         FirebaseUser user = (await event.auth.signInWithEmailAndPassword(
                 email: event.email, password: event.senha))
             .user;
@@ -26,6 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (event is Registrar) {
       yield LoginLoading();
       try {
+
         final FirebaseUser user =
             (await event.auth.createUserWithEmailAndPassword(
           email: event.email,
